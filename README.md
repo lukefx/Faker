@@ -1,5 +1,7 @@
 ## Faker ##
 
+[![Build Status](https://secure.travis-ci.org/lukefx/Faker.png?branch=master)](https://travis-ci.org/lukefx/Faker)
+
 The awesome Faker gem from the Ruby world, wrapped inside a jar for Java use.
 
 ## Usage ##
