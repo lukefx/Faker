@@ -4,10 +4,9 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 
-@SuppressWarnings("restriction")
-public class Faker {
+public abstract class Faker {
 	
-	private static ScriptEngine jruby;
+	static ScriptEngine jruby;
 	
 	static {
 		
@@ -21,25 +20,40 @@ public class Faker {
 		}
 		
 	}
+	
+	static Object eval(String toEvaluate) {
 		
-	public static String get(String wat) {
 		try {
-			jruby.eval("Faker::Config.locale = 'de-ch'");
-			return (String) jruby.eval(String.format("Faker::%s", wat));
+			return jruby.eval(toEvaluate);
+		}
+		catch(Exception e) {
+			System.out.println(String.format("Exception: %s", e.getMessage()));
+		}
+		return null;
+		
+	}
+	
+	public static String get(String what) {
+		
+		try {
+			return (String) jruby.eval(String.format("Faker::%s", what));
 		}
 		catch (Exception ex) {
 			return "";
 		}
+		
 	}
 
-	public static String get(String wat, String locale) {
+	public static String get(String what, String locale) {
+		
 		try {
 			jruby.eval(String.format("Faker::Config.locale = '%s'", locale));
-			return (String) jruby.eval(String.format("Faker::%s", wat));
+			return (String) jruby.eval(String.format("Faker::%s", what));
 		}
 		catch (Exception ex) {
 			return "";
 		}
+		
 	}
 	
 }
